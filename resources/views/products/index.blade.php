@@ -71,72 +71,72 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    {{-- <form action="{{ BASEURL }}products/editProduct" method="post" --}}
-                                    enctype="multipart/form-data">
-                                    <input type="text" name="id_product" value="{{ $product['id_product'] }}"
-                                        class="visually-hidden">
-                                    <ul>
-                                        <li class=" list-group-item mt-2">
-                                            <label for="name" class="form-label fs-5 d-block">
-                                                Name Product :
-                                            </label>
-                                            <input type="text" name="name" class="form-control"
-                                                value="{{ $product['name_product'] }}" required />
-                                        </li>
-                                        <li class="list-group-item mt-2">
-                                            <label for="description" class="form-label fs-5 d-block">
-                                                Description :
-                                            </label>
-                                            <input type="text" name="description" class="form-control"
-                                                value="{{ $product['description'] }}" required />
-                                        </li>
-                                        <li class="list-group-item mt-2">
-                                            <label for="image" class="form-label fs-5 d-block">
-                                                Image Product :
-                                            </label>
-                                            <img src="{{ asset('images/product/' . $product['image']) }}"
-                                                alt="Gambar {{ $product['name_product'] }}"
-                                                style="width: 200px; height: 200px;">
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" name="image">
-                                                <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item mt-2">
-                                            <label for="price" class="form-label fs-5 d-block">
-                                                Price :
-                                            </label>
-                                            <input type="text" name="price" class="form-control"
-                                                value="{{ $product['price'] }}" required />
-                                        </li>
-                                        <li class="list-group-item mt-2">
-                                            <label for="qty" class="form-label fs-5 d-block">
-                                                Quantity :
-                                            </label>
-                                            <input type="text" name="qty" class="form-control"
-                                                value="{{ $product['qty'] }}" required />
-                                        </li>
-                                        <li class="list-group-item mt-2">
-                                            <label for="category" class="form-label fs-5 d-block">
-                                                Category :
-                                            </label>
-                                            <input type="text" name="category" class="form-control"
-                                                value="{{ $product['category'] }}" required />
-                                        </li>
-                                        <li class="list-group-item mt-2">
-                                            <label for="brand" class="form-label fs-5 d-block">
-                                                Brand :
-                                            </label>
-                                            <input type="text" name="brand" class="form-control"
-                                                value="{{ $product['brand'] }}" required />
-                                        </li>
-                                    </ul>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" name="edit" class="btn btn-primary">Edit
-                                            Product</button>
-                                    </div>
+                                    <form action="{{ route('products.update', ['product' => $product['id_product']]) }}"
+                                        method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('put')
+                                        <ul>
+                                            <li class=" list-group-item mt-2">
+                                                <label for="name_product" class="form-label fs-5 d-block">
+                                                    Name Product :
+                                                </label>
+                                                <input type="text" name="name_product" class="form-control"
+                                                    value="{{ $product['name_product'] }}" required />
+                                            </li>
+                                            <li class="list-group-item mt-2">
+                                                <label for="description" class="form-label fs-5 d-block">
+                                                    Description :
+                                                </label>
+                                                <input type="text" name="description" class="form-control"
+                                                    value="{{ $product['description'] }}" required />
+                                            </li>
+                                            <li class="list-group-item mt-2">
+                                                <label for="image" class="form-label fs-5 d-block">
+                                                    Image Product :
+                                                </label>
+                                                <img src="{{ asset('images/product/' . $product['image']) }}"
+                                                    alt="Gambar {{ $product['name_product'] }}"
+                                                    style="width: 200px; height: 200px;">
+                                                <div class="input-group mb-3">
+                                                    <input type="file" class="form-control" name="image" id="inputGroupFile02">
+                                                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item mt-2">
+                                                <label for="price" class="form-label fs-5 d-block">
+                                                    Price :
+                                                </label>
+                                                <input type="text" name="price" class="form-control"
+                                                    value="{{ $product['price'] }}" required />
+                                            </li>
+                                            <li class="list-group-item mt-2">
+                                                <label for="qty" class="form-label fs-5 d-block">
+                                                    Quantity :
+                                                </label>
+                                                <input type="text" name="qty" class="form-control"
+                                                    value="{{ $product['qty'] }}" required />
+                                            </li>
+                                            <li class="list-group-item mt-2">
+                                                <label for="category" class="form-label fs-5 d-block">
+                                                    Category :
+                                                </label>
+                                                <input type="text" name="category" class="form-control"
+                                                    value="{{ $product['category'] }}" required />
+                                            </li>
+                                            <li class="list-group-item mt-2">
+                                                <label for="brand" class="form-label fs-5 d-block">
+                                                    Brand :
+                                                </label>
+                                                <input type="text" name="brand" class="form-control"
+                                                    value="{{ $product['brand'] }}" required />
+                                            </li>
+                                        </ul>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" name="edit" class="btn btn-primary">Edit
+                                                Product</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

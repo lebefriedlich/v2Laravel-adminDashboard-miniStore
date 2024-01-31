@@ -47,8 +47,6 @@ class ProductController extends Controller
             'brand' => $brand,
         ];
 
-        var_dump($params);
-
         $client = new Client();
         $url = "http://localhost/admin-miniStore-api/public/products/addProduct";
         $response = $client->request('POST', $url, [
@@ -57,7 +55,6 @@ class ProductController extends Controller
         ]);
 
         $content = $response->getBody()->getContents();
-        var_dump($content);
         $contentArray = json_decode($content, true);
 
         if ($contentArray['status'] == 'error') {
@@ -82,7 +79,56 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $name_product = $request->name_product;
+        $description = $request->description;
+        $image = $request->file('image');
+        $price = $request->price;
+        $qty = $request->qty;
+        $category = $request->category;
+        $brand = $request->brand;
+
+        $params = [
+            'name_product' => $name_product,
+            'description' => $description,
+            'price' => $price,
+            'qty' => $qty,
+            'category' => $category,
+            'brand' => $brand,
+        ];
+
+        if (!empty($image)) {
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images/product'), $imageName);
+
+            $params['image'] = $imageName;
+        }
+
+        $client = new Client();
+        $url = "http://localhost/admin-miniStore-api/public/products/editProduct/$id";
+        $response = $client->request('PUT', $url, [
+            'headers' => ['Content-type' => 'application/x-www-form-urlencoded'],
+            'form_params' => $params,
+        ]);
+
+        $content = $response->getBody()->getContents();
+        $contentArray = json_decode($content, true);
+
+        if ($contentArray['status'] == 'error') {
+            $error = $contentArray['message'];
+            return redirect()->to('products')->withErrors($error)->withInput();
+        } else {
+            if (!empty($image)) {
+                $deletedFileName = $contentArray['deletedFileName'];
+
+                $filePath = public_path('images/product/') . $deletedFileName;
+
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+
+            return redirect()->to('products')->with('succes', $contentArray['message']);
+        }
     }
 
     /**
@@ -94,9 +140,8 @@ class ProductController extends Controller
         $url = "http://localhost/admin-miniStore-api/public/products/deleteProduct/$id";
         $response = $client->request('DELETE', $url);
         $content =  $response->getBody()->getContents();
-        var_dump($content);
         $contentArray = json_decode($content, true);
-        var_dump($contentArray);
+
         if ($contentArray['status'] == 'error') {
             $error = $contentArray['message'];
             return redirect()->to('products')->withErrors($error)->withInput();
