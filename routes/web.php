@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -17,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('dashboard', DashboardController::class);
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('login', [AuthController::class, 'aunthenticate']);
+Route::get('dashboard', [DashboardController::class, 'index']);
 Route::resource('admins', AdminController::class);
 Route::resource('customers', CustomerController::class);
 Route::resource('products', ProductController::class);
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');

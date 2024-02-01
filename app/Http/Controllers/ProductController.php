@@ -12,6 +12,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if(!session('status')){
+            return redirect()->to('login')->withErrors('Please Log In First!')->withInput();
+        }
+        
         $client = new Client();
         $url = "http://localhost/admin-miniStore-api/public/products";
         $response = $client->request('GET', $url);

@@ -14,13 +14,13 @@
             <img src="{{ asset('images/main-logo.png') }}" alt="main-logo">
         </a>
     </header>
-
+    
     <div class="container-fluid bg-body-tertiary min-vh-100">
         <div class="row">
             <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary min-vh-100 position-fixed" style="top: 10;">
                 <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-                        <h3 class="ms-3">Hai, Admin</h3>
+                        <h3 class="ms-3">Hai, {{ session('data') }}</h3>
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center gap-2 text-black " href="dashboard">
@@ -48,11 +48,11 @@
     
                         <ul class="nav flex-column mb-auto">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 text-black" href="">
+                                <a class="nav-link d-flex align-items-center gap-2 text-black" href="{{ url('logout') }}">
                                     <i class="bi bi-door-closed"></i> Sign out
                                 </a>
                             </li>
-                        </ul>
+                        </ul>                        
                     </div>
                 </div>
             </div>

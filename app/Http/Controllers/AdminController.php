@@ -12,6 +12,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        if(!session('status')){
+            return redirect()->to('login')->withErrors('Please Log In First!')->withInput();
+        }
+        
         $client = new Client();
         $url = "http://localhost/admin-miniStore-api/public/admins";
         $response = $client->request('GET', $url);
@@ -52,8 +56,10 @@ class AdminController extends Controller
             'headers' => ['Content-type' => 'application/x-www-form-urlencoded'],
             'body' => json_encode($params)    
         ]);
+
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
+        
         if ($contentArray['status'] == 'error'){
             $error = $contentArray['message'];
             return redirect()->to('admins')->withErrors($error)->withInput();
@@ -104,6 +110,7 @@ class AdminController extends Controller
         
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
+
         if ($contentArray['status'] == 'error'){
             $error = $contentArray['message'];
             return redirect()->to('admins')->withErrors($error)->withInput();
@@ -122,6 +129,7 @@ class AdminController extends Controller
         $response = $client->request('DELETE', $url);
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
+        
         if ($contentArray['status'] == 'error'){
             $error = $contentArray['message'];
             return redirect()->to('admins')->withErrors($error)->withInput();

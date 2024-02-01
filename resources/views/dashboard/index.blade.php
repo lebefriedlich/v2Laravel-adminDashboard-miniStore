@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Dashboard</h1>
     </div>
-
+    
     <div class="row m-2">
         <div class="col-md-6 col-xl-3 offset-2">
             <a href="customers" class="text-decoration-none">

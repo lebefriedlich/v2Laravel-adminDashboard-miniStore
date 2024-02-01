@@ -12,6 +12,10 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        if(!session('status')){
+            return redirect()->to('login')->withErrors('Please Log In First!')->withInput();
+        }
+        
         $client = new Client();
         $url = "http://localhost/admin-miniStore-api/public/customers";
         $response = $client->request('GET', $url);
@@ -44,8 +48,10 @@ class CustomerController extends Controller
             'headers' => ['Content-type' => 'application/x-www-form-urlencoded'],
             'body' => json_encode($params)    
         ]);
+
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
+        
         if ($contentArray['status'] == 'error'){
             $error = $contentArray['message'];
             return redirect()->to('customers')->withErrors($error)->withInput();
