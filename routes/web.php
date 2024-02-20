@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::post('login', [AuthController::class, 'aunthenticate']);
+Route::post('login', [AuthController::class, 'authentication']);
 Route::get('dashboard', [DashboardController::class, 'index']);
 Route::resource('admins', AdminController::class);
 Route::resource('customers', CustomerController::class);
